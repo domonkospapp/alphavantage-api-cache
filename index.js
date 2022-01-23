@@ -7,7 +7,7 @@ dotenv.config()
 const PORT = process.env.PORT || 3000
 const REDIS_PORT = process.env.REDIS_PORT || 6379
 const ALPHA_VANTAGE_API_KEY = process.env.ALPHA_VANTAGE_API_KEY || "demo"
-const CACHE_EXPIRY = process.env.CACHE_EXPIRY || 5
+const CACHE_EXPIRATION = process.env.CACHE_EXPIRATION || 5
 
 const redisClient = createClient(REDIS_PORT);
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
@@ -27,7 +27,7 @@ const getCompany = async (req, res, next) => {
         const data = await response.json();
 
         if(data.Symbol === companyName){
-            redisClient.setEx(companyName, CACHE_EXPIRY, JSON.stringify(data));
+            redisClient.setEx(companyName, CACHE_EXPIRATION, JSON.stringify(data));
             res.send(data);
         }else{
             res.send("Wrong ticker!");
