@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/domonkospapp/alphavantage-api-cache#readme",
   "dependencies": {
+    "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "node-fetch": "^3.2.0",
     "redis": "^4.0.2"
