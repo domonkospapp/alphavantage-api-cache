@@ -3,6 +3,8 @@ import fetch from "node-fetch"
 import { createClient } from 'redis';
 import dotenv from 'dotenv'
 
+const API_PATH = 'https://www.alphavantage.co'
+
 dotenv.config()
 const PORT = process.env.PORT || 3000
 const REDIS_PORT = process.env.REDIS_PORT || 6379
@@ -23,7 +25,7 @@ const cache = async(req, res, next) => {
 const getCompany = async (req, res, next) => {
     try{
         const { companyName } = req.params;
-        const response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=${companyName}&apikey=${ALPHA_VANTAGE_API_KEY}`)
+        const response = await fetch(`${API_PATH}/query?function=OVERVIEW&symbol=${companyName}&apikey=${ALPHA_VANTAGE_API_KEY}`)
         const data = await response.json();
 
         if(data.Symbol === companyName){
